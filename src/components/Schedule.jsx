@@ -1,29 +1,50 @@
-const Schedule = [
-    {
-      key: 1,
-      title: "Delegation",
-      content:
-        "Q. How many programmers does it take to change a light bulb? A. None It’s a hardware problem"
-    },
-    {
-      key: 2,
-      title: "Loops",
-      content:
-        "How to keep a programmer in the shower forever. Show him the shampoo bottle instructions: Lather. Rinse. Repeat."
-    },
-    {
-      key: 3,
-      title: "Arrays",
-      content:
-        "Q. Why did the programmer quit his job? A. Because he didn't get arrays."
-    },
-    {
-      key: 4,
-      title: "Hardware vs. Software",
-      content:
-        "What's the difference between hardware and software? You can hit your hardware with a hammer, but you can only curse at your software."
-    }
-  ];
+import React, { useState } from "react";
+
+function Schedule(props) {
+
+  const [inputText,setInputText] = useState({
+    title:"",
+    content:""
+  });
+
+  function addInputText(event) {
+    setInputText(prevValue => {
+      return {
+      ...prevValue,
+      [event.target.name]:event.target.value
+    };
+    });
+  }
+
+  function submitInputText(event){
+    props.addInputSchedule(inputText)
+    setInputText({
+    title:"",
+    content:""});
+    event.preventDefault();
+  }
+
+  return (
+    <div>
+      <form>
+        <input
+          onChange={addInputText}
+          name="title" 
+          value={inputText.title} 
+          placeholder="Title"
+          
+        /> 
+        <textarea 
+          onChange={addInputText} 
+          name="content" 
+          value={inputText.content} 
+          placeholder="Take a note..." 
+          rows="3"
+         />
+        <button onClick={submitInputText} >Add</button>
+      </form>
+    </div>
+  );
+}
 
 export default Schedule;
-  
